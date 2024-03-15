@@ -11,7 +11,7 @@ using (ExcelPackage package = new ExcelPackage(new System.IO.FileInfo(filePath))
     int rowCount = worksheet.Dimension.Rows;
     int columnsCount = worksheet.Dimension.Columns;
 
-    var topics = new List<Topic>();
+    var topics = new List<TopicImport>();
 
     for (int i = 2; i <= rowCount; i++)
     {
@@ -19,7 +19,7 @@ using (ExcelPackage package = new ExcelPackage(new System.IO.FileInfo(filePath))
         {
             if (!string.IsNullOrEmpty(worksheet.Cells[i, j].Value?.ToString()))
             {
-                topics.Add(new Topic() { Name = worksheet.Cells[i, j].Value?.ToString(), Row = i, Columns = j, Children = null, Show = true});
+                topics.Add(new TopicImport() { Name = worksheet.Cells[i, j].Value?.ToString(), Row = i, Columns = j, Children = null, Show = true});
             }
         }
     }
@@ -61,11 +61,11 @@ Console.ReadKey();
 
 
 
-public class Topic
+public class TopicImport
 {
     public int Row { get; set; }
     public int Columns { get; set; }
     public string Name { get; set; }
     public bool Show { get; set; }
-    public List<Topic> Children { get; set; }
+    public List<TopicImport> Children { get; set; }
 }
